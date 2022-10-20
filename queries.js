@@ -32,6 +32,34 @@ const getUserById = (request, response) => {
   })
 }
 
+const findUsersBySearch = (request, response) => {
+  const id = parseInt(request.query.id)
+  const name = request.query.name
+
+  var sqlStmt = 'SELECT * FROM test_20220908.users where '
+
+
+  if (!name == false) {
+    sqlStmt += ("name = '" + name + "' ")
+    console.log("adding name = " + name)
+  }
+
+  if (!Number.isNaN(id)) {
+    sqlStmt += ("AND id = " + id)
+    console.log("Id = " + id)
+  }
+
+  console.log(sqlStmt)
+
+  pool.query(sqlStmt, (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+
+}
+
 const createUser = (request, response) => {
   const { id, name, course_id } = request.body
 
@@ -73,6 +101,7 @@ const deleteUser = (request, response) => {
 module.exports = {
     getUsers,
     getUserById,
+    findUsersBySearch,
     createUser,
     updateUser,
     deleteUser,
