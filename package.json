@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
+    "mongodb": "^4.11.0",
+    "mongodb-atlas-api-client": "^3.5.0",
     "pg": "^8.8.0"
   }
 }
