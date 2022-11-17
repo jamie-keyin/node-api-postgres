@@ -25,7 +25,7 @@ app.post('/users', db.createUser)
 app.put('/users/:id', db.updateUser)
 app.delete('/users/:id', db.deleteUser)
 
-Capp.get('/first_collection', async function (req, res) {
+app.get('/first_collection', async function (req, res) {
       const dbConnect = dbo.getDb();
 
       dbConnect
@@ -39,6 +39,30 @@ Capp.get('/first_collection', async function (req, res) {
           }
         });
     });
+
+app.post('/first_collection', function (req, res) {
+  const dbConnect = dbo.getDb();
+
+// "firstName": "James",
+//  "surname": "Doe",
+//  "department": "IT"
+  const testDocument = {
+    firstName: req.body.firstName,
+    surname: req.body.surname,
+    department: req.body.department
+  };
+
+  dbConnect
+    .collection("myFirstCollection")
+    .insertOne(testDocument, function (err, result) {
+      if (err) {
+        res.status(400).send("Error inserting test document!");
+      } else {
+        console.log(`Added a new test document with id ${result.insertedId}`);
+        res.status(204).send();
+      }
+    });
+});
 
 
 // perform a database connection when the server starts
