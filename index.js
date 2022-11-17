@@ -25,7 +25,7 @@ app.post('/users', db.createUser)
 app.put('/users/:id', db.updateUser)
 app.delete('/users/:id', db.deleteUser)
 
-app.get('/listings', async function (req, res) {
+Capp.get('/first_collection', async function (req, res) {
       const dbConnect = dbo.getDb();
 
       dbConnect
@@ -33,7 +33,7 @@ app.get('/listings', async function (req, res) {
         .find({}).limit(50)
         .toArray(function (err, result) {
           if (err) {
-            res.status(400).send("Error fetching listings!");
+            res.status(400).send("Error fetching items from first collection!");
          } else {
             res.json(result);
           }
