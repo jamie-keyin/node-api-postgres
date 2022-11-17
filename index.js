@@ -1,3 +1,5 @@
+require('dotenv').config({ path: './config.env' });
+
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
@@ -38,6 +40,16 @@ app.get('/listings', async function (req, res) {
         });
     });
 
-app.listen(port, () => {
-  console.log(`App running on port ${port}.`)
-})
+
+// perform a database connection when the server starts
+dbo.connectToServer(function (err) {
+    if (err) {
+      console.error(err);
+      process.exit();
+    }
+
+    // start the Express server
+    app.listen(port, () => {
+      console.log(`App running on port ${port}.`)
+    })
+});
